@@ -1,0 +1,121 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "99fb7551-5518-4937-aa79-7770413419db": {
+        "id": "99fb7551-5518-4937-aa79-7770413419db",
+        "parent": null,
+        "name": "sachiipachii",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "be6e6393-bf88-481c-8e12-fbc57c98f3b2"
+        ],
+        "isRemovable": false,
+        "filePath": "sachiipachii"
+      },
+      "be6e6393-bf88-481c-8e12-fbc57c98f3b2": {
+        "id": "be6e6393-bf88-481c-8e12-fbc57c98f3b2",
+        "parent": "99fb7551-5518-4937-aa79-7770413419db",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "sachiipachii/lambda.js",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\nconst rekognition = new AWS.Rekognition();\n\nexports.handler = function (event, context, callback) {\n    rekognition.detectText({\n        Image: {\n            S3Object: {\n                Bucket: \"indunil.trigger\",\n                Name: \"c5134dae01ad22a5.png\"\n            }\n        }\n    }).promise()\n        .then(data => {\n            // your code goes here\n        })\n        .catch(err => {\n            // error handling goes here\n        });\n\n    rekognition.detectLabels({\n        Image: {\n            S3Object: {\n                Bucket: \"test.indunil1\",\n                Name: \"animal_logo_30.jpg\"\n            }\n        }\n    }).promise()\n        .then(data => {\n            console.log(data);\n\n            // your code goes here\n        })\n        .catch(err => {\n            console.log(err);\n\n            // error handling goes here\n        });\n\n    s3.listObjects({\n        'Bucket': 'as2-test-lahiru',\n        'MaxKeys': 10,\n        'Prefix': ''\n    }).promise()\n        .then(data => {\n            console.log(data);           // successful response\n            /*\n            data = {\n                Contents: [\n                    {\n                       ETag: \"\\\"70ee1738b6b21e2c8a43f3a5ab0eee71\\\"\",\n                       Key: \"example1.jpg\",\n                       LastModified: \"<Date Representation>\",\n                       Owner: {\n                          DisplayName: \"myname\",\n                          ID: \"12345example25102679df27bb0ae12b3f85be6f290b936c4393484be31bebcc\"\n                       },\n                       Size: 11,\n                       StorageClass: \"STANDARD\"\n                    },\n                    // {...}\n                ]\n            }\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n\n\n\n    s3.listObjects({\n        'Bucket': 'com.sigma.test.318300609668.hirudineeliyanage.us-west-1',\n        'MaxKeys': 10,\n        'Prefix': ''\n    }).promise()\n        .then(data => {\n            console.log(data);           // successful response\n            /*\n            data = {\n                Contents: [\n                    {\n                       ETag: \"\\\"70ee1738b6b21e2c8a43f3a5ab0eee71\\\"\",\n                       Key: \"example1.jpg\",\n                       LastModified: \"<Date Representation>\",\n                       Owner: {\n                          DisplayName: \"myname\",\n                          ID: \"12345example25102679df27bb0ae12b3f85be6f290b936c4393484be31bebcc\"\n                       },\n                       Size: 11,\n                       StorageClass: \"STANDARD\"\n                    },\n                    // {...}\n                ]\n            }\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n\n\n\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}\n\n//test.indunil1  animal_logo_30.jpg\n// indunil.trigger   animal_logo_30.jpg",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "1b484c3d-a02c-4c71-bc33-e94c1e9acbff": {
+            "id": "1b484c3d-a02c-4c71-bc33-e94c1e9acbff",
+            "name": "Test event",
+            "functionId": "be6e6393-bf88-481c-8e12-fbc57c98f3b2",
+            "event": "{\"key1\": \"value1\", \"key2\": \"value2\", \"key3\": \"value3\"}",
+            "eventTemplate": "hello-world"
+          }
+        }
+      }
+    },
+    "rootNode": "99fb7551-5518-4937-aa79-7770413419db",
+    "openFiles": [
+      "be6e6393-bf88-481c-8e12-fbc57c98f3b2"
+    ],
+    "currentFileId": "be6e6393-bf88-481c-8e12-fbc57c98f3b2",
+    "resources": {
+      "rekognitionResource": {
+        "name": "rekognitionResource",
+        "type": "Rekognition",
+        "config": {}
+      },
+      "s3as2TestLahiru": {
+        "name": "s3as2TestLahiru",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "us-east-1",
+            "name": "as2-test-lahiru"
+          }
+        }
+      },
+      "s3comsigmatest318300609668hirudineeliyanageusWest1": {
+        "name": "s3comsigmatest318300609668hirudineeliyanageusWest1",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "us-east-1",
+            "name": "com.sigma.test.318300609668.hirudineeliyanage.us-west-1"
+          }
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "language": "javascript",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "sachiipachii",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1574756962931
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "sachiipachii",
+      "url": "https://github.com/Indunil1992/sachiipachii"
+    }
+  }
+}
